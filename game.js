@@ -3,11 +3,14 @@ var context = canvas.getContext("2d");
 var game, snake, food;
 var gunnarImg = new Image();
 gunnarImg.src = 'gunnar.png';
-
+var cImg = new Image();
+cImg.src = 'c.png';
+var riieImg = new Image();
+riieImg.src = 'riie.png'
 game = {
   
   score: 0,
-  fps: 8,
+  fps: 2,
   over: false,
   message: null,
   
@@ -58,8 +61,8 @@ game = {
     context.clearRect(0, 0, canvas.width, canvas.height);
   },
 
-  drawImage: function(img, x, y) {
-    context.drawImage(img, x - snake.size / 2, y - snake.size / 2, snake.size, snake.size);
+  drawImage: function(img, x, y, x_size, y_size) {
+    context.drawImage(img, x - snake.size / 2, y - snake.size / 2, x_size, y_size);
   }
   
 };
@@ -105,13 +108,18 @@ snake = {
   
   draw: function() {
     for (var i = 0; i < snake.sections.length; i++) {
-      snake.drawSection(snake.sections[i].split(','));
+      snake.drawSection(snake.sections[i].split(','), snake.sections.length, i);
     }    
   },
   
-  drawSection: function(section) {
+  drawSection: function(section, pikkus, index) {
     console.log(section);
-    game.drawImage(gunnarImg, parseInt(section[0]), parseInt(section[1]));
+    if (index == pikkus - 1) {
+       game.drawImage(gunnarImg, parseInt(section[0]) - 25, parseInt(section[1]) - 25, canvas.width / 40 + 50, canvas.width / 40 + 50);
+    }
+    else {
+      game.drawImage(riieImg, parseInt(section[0]), parseInt(section[1]), canvas.width / 40, canvas.width / 40);
+    }
   },
   
   checkCollision: function() {
@@ -158,7 +166,7 @@ food = {
   },
   
   draw: function() {
-    game.drawBox(food.x, food.y, food.size, food.color);
+    game.drawImage(cImg ,food.x, food.y, canvas.width / 40, canvas.width / 40);
   }
   
 };
