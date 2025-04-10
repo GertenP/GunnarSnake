@@ -1,6 +1,8 @@
 var canvas = document.getElementById("the-game");
 var context = canvas.getContext("2d");
 var game, snake, food;
+var gunnarImg = new Image();
+gunnarImg.src = 'gunnar.png';
 
 game = {
   
@@ -13,7 +15,7 @@ game = {
     game.over = false;
     game.message = null;
     game.score = 0;
-    game.fps = 8;
+    game.fps = 15;
     snake.init();
     food.set();
   },
@@ -54,6 +56,10 @@ game = {
   
   resetCanvas: function() {
     context.clearRect(0, 0, canvas.width, canvas.height);
+  },
+
+  drawImage: function(img, x, y) {
+    context.drawImage(img, x - snake.size / 2, y - snake.size / 2, snake.size, snake.size);
   }
   
 };
@@ -63,7 +69,7 @@ snake = {
   size: canvas.width / 40,
   x: null,
   y: null,
-  color: '#0F0',
+  color: '#4287f5',
   direction: 'left',
   sections: [],
   
@@ -104,7 +110,8 @@ snake = {
   },
   
   drawSection: function(section) {
-    game.drawBox(parseInt(section[0]), parseInt(section[1]), snake.size, snake.color);
+    console.log(section);
+    game.drawImage(gunnarImg, parseInt(section[0]), parseInt(section[1]));
   },
   
   checkCollision: function() {
@@ -207,5 +214,15 @@ function loop() {
     requestAnimationFrame(loop);
   }, 1000 / game.fps);
 }
+
+// var canvas = document.getElementById("the-game");
+// var context = canvas.getContext("2d");
+
+// var gunnarImg = new Image();
+// gunnarImg.src = 'gunnar.png'; // Pane gunnar.png sama kausta kus HTML fail
+
+// gunnarImg.onload = function() {
+//   context.drawImage(gunnarImg, 100, 100, 100, 100); // x, y, laius, kõrgus
+// };
 
 requestAnimationFrame(loop);
