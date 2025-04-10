@@ -5,8 +5,12 @@ var gunnarImg = new Image();
 gunnarImg.src = 'gunnar.png';
 var cImg = new Image();
 cImg.src = 'c.png';
+var käedImg = new Image();
+käedImg.src = 'riie.png'
 var riieImg = new Image();
-riieImg.src = 'riie.png'
+riieImg.src = 'riie3.png'
+var jaladImg = new Image();
+jaladImg.src = 'jalad.png'
 game = {
   
   score: 0,
@@ -61,9 +65,14 @@ game = {
     context.clearRect(0, 0, canvas.width, canvas.height);
   },
 
-  drawImage: function(img, x, y, x_size, y_size) {
-    context.drawImage(img, x - snake.size / 2, y - snake.size / 2, x_size, y_size);
+  drawImage: function(img, x, y, x_size, y_size, rotation = 0) {
+    context.save();
+    context.translate(x + x_size / 2, y + y_size / 2); // Liigume pildi keskpunkti
+    context.rotate(rotation * Math.PI / 180); // Pööra kraadides
+    context.drawImage(img, -x_size / 2, -y_size / 2, x_size, y_size);
+    context.restore();
   }
+  
   
 };
 
@@ -115,10 +124,45 @@ snake = {
   drawSection: function(section, pikkus, index) {
     console.log(section);
     if (index == pikkus - 1) {
-       game.drawImage(gunnarImg, parseInt(section[0]) - 25, parseInt(section[1]) - 25, canvas.width / 40 + 50, canvas.width / 40 + 50);
+      let rotation = 0;
+      switch(snake.direction) {
+        case 'left': rotation = -90; break;
+        case 'right': rotation = 90; break;
+        case 'down': rotation = 180; break;
+        case 'up': rotation = 0; break;
+      }
+      game.drawImage(gunnarImg, parseInt(section[0]) - 25, parseInt(section[1]) - 25, canvas.width / 40 + 50, canvas.width / 40 + 50, rotation);
+    }
+    else if (index == 0){
+      let rotation = 0;
+      switch(snake.direction) {
+        case 'left': rotation = -90; break;
+        case 'right': rotation = 90; break;
+        case 'down': rotation = 180; break;
+        case 'up': rotation = 0; break;
+      }
+      game.drawImage(jaladImg, parseInt(section[0]) - 25, parseInt(section[1]) - 25, canvas.width / 40 + 50, canvas.width / 40 + 50, rotation);
+    }
+
+    else if (index == pikkus - 2) {
+      let rotation = 0;
+      switch(snake.direction) {
+        case 'left': rotation = -90; break;
+        case 'right': rotation = 90; break;
+        case 'down': rotation = 180; break;
+        case 'up': rotation = 0; break;
+      }
+      game.drawImage(riieImg, parseInt(section[0]) - 25, parseInt(section[1]) - 25, canvas.width / 40 + 50, canvas.width / 40 + 50, rotation);
     }
     else {
-      game.drawImage(riieImg, parseInt(section[0]), parseInt(section[1]), canvas.width / 40, canvas.width / 40);
+      let rotation = 0;
+      switch(snake.direction) {
+        case 'left': rotation = -90; break;
+        case 'right': rotation = 90; break;
+        case 'down': rotation = 180; break;
+        case 'up': rotation = 0; break;
+      }
+      game.drawImage(käedImg, parseInt(section[0]) - 25, parseInt(section[1]) - 25, canvas.width / 40 + 50, canvas.width / 40 + 50, rotation);
     }
   },
   
@@ -217,6 +261,7 @@ function loop() {
     food.draw();
     snake.draw();
     game.drawMessage();
+
   }
   setTimeout(function() {
     requestAnimationFrame(loop);
