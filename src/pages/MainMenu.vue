@@ -3,19 +3,22 @@ import { ref } from 'vue';
 import gunnars3 from '@/assets/gunnars3.png'
 import start from '@/assets/start.png'
 import info from '@/assets/info.png'
+import fire from '@/assets/fire.gif'
+import '@/styles/style.css'
 
 </script>
 
 <template>
-  <div class="header">
-    <img class="main-logo" :src="gunnars3" />
-  </div>
+
+  <img class="main-logo" :src="gunnars3"></img>
+
 
   <div class="buttons">
-      <button class="start-button">
-        <img  :src="start">
-        <img  :src="info">
-      </button>
+        <img id="nupp1"  :src="start">
+        <img id="nupp2" :src="info">
   </div>
+
+  <footer class="footer">
+  </footer>
 </template>
 

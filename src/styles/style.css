@@ -1,21 +1,66 @@
-    body {
-        background-color: gray;
-        margin: 0;
-        height: 50vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+body {
+    background-color: gray;
+    margin: 0;
+    height: 70vh; /* Täidab kogu ekraani kõrguse */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Paigutab kõik vertikaalselt */
+    width: 100%;
+    background-image: url('../assets/gunnar.png');
+}
+
+
+
+.main-logo {
+    width: 800px; /* Try increasing this to make it bigger */
+    max-width: 90%; /* Stays responsive on smaller screens */
+    height: auto; /* Maintains aspect ratio */
+    margin-bottom: 20px;
+    display: block;
+    margin: 0 auto;
+    animation: float 3s ease-in-out infinite;
+}
+
+
+.buttons {
+    margin-top: 20px;
+}
+
+.fire {
+    width: 100%;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
     }
 
-    .container {
-        text-align: center;
+    50% {
+        transform: translateY(-20px);
     }
 
-    .main-logo {
-        max-width: 100%;
-        max-height: 100%;
+    100% {
+        transform: translateY(0);
     }
+}
 
-    .start-button {
-        background-color: gray;
-    }
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1000px; /* Võid määrata pildi kõrguse */
+    background-image: url('@/assets/fire.gif'); /* Pildi asukoht */
+    background-repeat: repeat-x; /* Korratakse horisontaalselt */
+    background-size: contain; /* Hoiab pildi suuruse proportsioonid */
+    background-position: bottom;
+    background-size: 60%;
+    z-index: 10;
+}
+
+/* Kui soovid pilti paigutada ka täpselt ülevalt, siis kasuta näiteks: */
+.footer img {
+    width: auto;
+    height: 100%;
+}
