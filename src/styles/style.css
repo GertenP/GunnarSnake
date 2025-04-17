@@ -1,0 +1,21 @@
+    body {
+        background-color: gray;
+        margin: 0;
+        height: 50vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container {
+        text-align: center;
+    }
+
+    .main-logo {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .start-button {
+        background-color: gray;
+    }
