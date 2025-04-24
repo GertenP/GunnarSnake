@@ -15,7 +15,9 @@ import '@/styles/style.css'
     <router-link to="/game">
       <img id="nupp1" :src="start" />
     </router-link>
-    <img id="nupp2" :src="info" />
+    <router-link to="/info">
+      <img id="nupp2" :src="info" />
+    </router-link>
   </div>
 
   <footer class="footer">
