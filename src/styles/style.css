@@ -7,7 +7,7 @@ body {
     align-items: center;
     flex-direction: column; /* Paigutab kõik vertikaalselt */
     width: 100%;
-    background-image: url('../assets/gunnar.png');
+    background-image: url('../assets/gunnaryksi5.png');
 }
 
 
@@ -22,6 +22,10 @@ body {
     animation: float 3s ease-in-out infinite;
 }
 
+a{
+    position: relative; /* Lisatud */
+    z-index: 11 !important;
+}
 
 .buttons {
     margin-top: 20px;
