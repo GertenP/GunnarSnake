@@ -1,10 +1,8 @@
-
 <script setup>
-import MainMenu from '@/pages/MainMenu.vue'; 
-import '@/styles/style.css'
 </script>
 
 <template>
-    <router-view />
+  <div id="app">
+    <router-view></router-view>  
+  </div>
 </template>
-

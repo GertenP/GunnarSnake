@@ -6,7 +6,7 @@ import Game from './pages/Game.vue'
 
 const routes = [
   { path: '/', component: MainMenu, name: 'Menu' },
-  { path: '/game', component: Game, name: 'Game' },
+  { path: '/game', component: Game, name: 'Game', meta: { container: false } },
 ]
 
 const router = createRouter({
