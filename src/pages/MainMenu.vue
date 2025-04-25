@@ -6,22 +6,23 @@ import gunnars3 from '@/assets/gunnars3.png'
 import start from '@/assets/start.png'
 import info from '@/assets/info.png'
 import fire from '@/assets/fire.gif'
+import gunnarbackgroundImage from '@/assets/gunnaryksi5.png';
 
 
 
 onMounted(() => {
-  document.body.style.backgroundColor = 'gray'
-  document.body.style.backgroundImage = "url('../assets/gunnaryksi5.png')"
-  document.body.style.backgroundSize = 'cover'
-  document.body.style.backgroundRepeat = 'no-repeat'
-  document.body.style.backgroundPosition = 'center'
-  document.body.style.margin = '0'
-  document.body.style.height = '100vh'
-  document.body.style.display = 'flex'
-  document.body.style.justifyContent = 'center'
-  document.body.style.alignItems = 'center'
-  document.body.style.flexDirection = 'column'
-})
+  document.body.style.backgroundColor = 'gray';
+  document.body.style.backgroundImage = `url(${gunnarbackgroundImage})`;
+  document.body.style.backgroundRepeat = 'repeat';
+  document.body.style.backgroundPosition = 'top left'; 
+  document.body.style.margin = '0';
+  document.body.style.height = '100vh';
+  document.body.style.display = 'flex';
+  document.body.style.justifyContent = 'center';
+  document.body.style.alignItems = 'center';
+  document.body.style.flexDirection = 'column';
+});
+
 
 
 onUnmounted(() => {
