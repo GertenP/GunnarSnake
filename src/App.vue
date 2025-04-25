@@ -1,4 +1,6 @@
 <script setup>
+import MainMenu from '@/pages/MainMenu.vue'; 
+
 </script>
 
 <template>
@@ -6,3 +8,7 @@
     <router-view></router-view>  
   </div>
 </template>
+
+
+<style>
+</style>
