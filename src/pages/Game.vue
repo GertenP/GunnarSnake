@@ -5,6 +5,6 @@ import { ref } from 'vue';
 
 <template>
 
-<img src="../assets/1000008004.jpg" alt="">
+<img src="../assets/info.png" alt="">
 </template>
 
