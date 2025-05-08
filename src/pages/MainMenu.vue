@@ -3,11 +3,11 @@
 import { RouterLink } from 'vue-router'
 import { onMounted, onUnmounted } from 'vue'
 
-import gunnars3 from '@/assets/gunnars3.png'
+import GunnarSnakeLogo from '@/assets/GunnarSnake.png'
 import start from '@/assets/start.png'
 import info from '@/assets/info.png'
 import fire from '@/assets/fire.gif'
-import gunnarbackgroundImage from '@/assets/gunnaryksi5.png';
+import gunnarbackgroundImage from '@/assets/GunnarBackground.png';
 
 
 
@@ -33,7 +33,7 @@ onUnmounted(() => {
 
 <template>
   <div class="page-content">
-    <img class="main-logo" :src="gunnars3" />
+    <img class="main-logo" :src="GunnarSnakeLogo" />
 
     <div class="buttons">
       <router-link to="/game">
