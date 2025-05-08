@@ -23,7 +23,7 @@
 import { onMounted, ref } from 'vue';
 
 // Import images (for this example, assuming images are in src/assets/images/)
-import gunnarImgSrc from '@/assets/gunnar.png';
+import gunnarImgSrc from '@/assets/GunnarBackground.png';   //SEE SIIN VAJA VAHETADA ÕIGEKS PEAKS
 import cImgSrc from '@/assets/c.png';
 import käedImgSrc from '@/assets/riie.png';
 import riieImgSrc from '@/assets/riie3.png';
