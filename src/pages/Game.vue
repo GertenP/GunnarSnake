@@ -2,17 +2,16 @@
     <div class="container">
         <div id="gameinfo-container">
             <p id="mainmenu-link">
-                < Quit to Main Menu 
-            </p>
-            <canvas ref="canvas" id="the-game" width="1200" height="1000"></canvas>
+                < Quit to Main Menu </p>
+                    <canvas ref="canvas" id="the-game" width="1200" height="1000"></canvas>
         </div>
         <div id="gunnar-container">
             <p id="gunnar-header">Gunnar räägib</p>
             <div id="gunnar-text">
-                <p>Noo kuulake nüüd hästi, lapsed — 
-                    .NET on see uhke Microsofti vidin, 
+                <p>Noo kuulake nüüd hästi, lapsed —
+                    .NET on see uhke Microsofti vidin,
                     millega tehakse päris programme, mitte mingit nalja nagu need JavaScripti pasteedid.
-                    Kui tahad kunagi inimestele öelda, et teed päris IT-d, siis .NET on see pilet 
+                    Kui tahad kunagi inimestele öelda, et teed päris IT-d, siis .NET on see pilet
                     — kõik muu on lihtsalt klõps-klõps ja "eliithäkkerite" mängumaa.
                 </p>
             </div>
