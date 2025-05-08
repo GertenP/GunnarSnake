@@ -255,8 +255,11 @@ onMounted(() => {
 });
 </script>
 
-<template>
 
-<img src="../assets/1000008004.jpg" alt="">
-</template>
-
+<style scoped>
+canvas {
+    background: #eee;
+    display: block;
+    margin: auto;
+}
+</style>
