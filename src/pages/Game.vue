@@ -1,9 +1,10 @@
 <template>
     <div class="container">
         <div id="gameinfo-container">
-            <p id="mainmenu-link">
-                < Quit to Main Menu </p>
-                    <canvas ref="canvas" id="the-game" width="1200" height="1000"></canvas>
+            <router-link to="/" class="back-link">
+                ❮ Avalehele
+            </router-link>
+            <canvas ref="canvas" id="the-game" width="1200" height="1000"></canvas>
         </div>
         <div id="gunnar-container">
             <p id="gunnar-header">Gunnar räägib</p>

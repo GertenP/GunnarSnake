@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
+
 body {
+    font-family: 'Pixelify Sans', sans-serif;
     background-color: rgb(100, 99, 99);
+    
 }
 
 #mainmenu-link {
@@ -30,8 +34,8 @@ body {
     border-width: medium;
     border-style: solid;
     border-color: orange;
-    max-width: 1000px; 
-    max-height: 500px; 
+    width: 1200px; 
+    height: 1000px; 
 }
 
 #gunnar-container {
@@ -44,15 +48,17 @@ body {
     background-color: rgb(75, 72, 72);
     color: white;
     height: 1000px;
-    margin-top: 25px;
-    max-width: 400px;
-    max-height: 400px;
+    margin-top: 20px;
+    width: 800px;
+    height: 760px;
     border-radius: 10px;
     text-align: center;
-
+    font-size: 40px;
 }
 
 #gunnar-header {
+    margin-top: 135px;
     display: flex;
     color: white;
+    font-size: 50px;
 }
