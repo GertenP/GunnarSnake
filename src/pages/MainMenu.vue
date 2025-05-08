@@ -60,7 +60,7 @@ onUnmounted(() => {
   margin-bottom: 20px;
   display: block;
   margin: 0 auto;
-  animation: float 3s ease-in-out infinite;
+  animation: 3s ease-in-out infinite;
 }
 
 a {
