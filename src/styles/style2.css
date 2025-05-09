@@ -28,7 +28,7 @@ body {
 
 #the-game {
     background-color: rgb(58, 57, 57);
-    margin: 20px auto; 
+    margin: 70px auto; 
     margin-left: 50px;
     border-radius: 10px;
     border-width: medium;
@@ -39,6 +39,7 @@ body {
 }
 
 #gunnar-container {
+    margin-top: 84px;
     display: flex;
     flex-direction: column; 
     width: 100%; 
@@ -57,8 +58,12 @@ body {
 }
 
 #gunnar-header {
-    margin-top: 135px;
+    margin: 0 0 0 0;
     display: flex;
     color: white;
     font-size: 50px;
+}
+
+#game-score{
+    font-size: 60px;
 }
