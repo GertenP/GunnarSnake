@@ -175,7 +175,7 @@ onMounted(() => {
         },
 
         checkGrowth() {
-            if (this.x === food.x && this.y === food.y) {
+            if (Math.abs(this.x - food.x) < 50 && Math.abs(this.y - food.y) < 50) {
                 game.score++;
                 if (game.score % 5 === 0 && game.fps < 60) {
                     game.fps++; // Increase speed as the snake eats more food
@@ -231,6 +231,7 @@ onMounted(() => {
             snake.direction = lastKey;
         } else if (lastKey === 'start_game' && game.over) {
             game.start(); // Restart the game on spacebar or enter
+            window.location.reload();
         }
     };
 
