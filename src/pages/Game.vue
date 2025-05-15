@@ -23,8 +23,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 
-// Import images (for this example, assuming images are in src/assets/images/)
-import gunnarImgSrc from '@/assets/GunnarBackground.png';   //SEE SIIN VAJA VAHETADA ÕIGEKS PEAKS
+import gunnarImgSrc from '@/assets/gunnarhead.png';
 import cImgSrc from '@/assets/c.png';
 import käedImgSrc from '@/assets/riie.png';
 import riieImgSrc from '@/assets/riie3.png';
@@ -35,7 +34,6 @@ const canvas = ref(null);
 let context;
 let game, snake, food;
 
-// Initialize images
 const gunnarImg = new Image();
 gunnarImg.src = gunnarImgSrc;
 const cImg = new Image();
@@ -63,7 +61,7 @@ onMounted(() => {
             this.fps = 15;
             snake.init();
             food.set();
-            loop(); // Start the game loop when the game starts
+            loop();
         },
 
         stop() {
@@ -116,14 +114,21 @@ onMounted(() => {
         color: '#4287f5',
         direction: 'left',
         sections: [],
+        rotations: [],
+        currentRotations: [],
 
         init() {
             this.sections = [];
+            this.rotations = [];
+            this.currentRotations = [];
             this.direction = 'left';
             this.x = canvas.value.width / 2 + this.size / 2;
             this.y = canvas.value.height / 2 + this.size / 2;
+
             for (let i = this.x + (5 * this.size); i >= this.x; i -= this.size) {
                 this.sections.push(`${i},${this.y}`);
+                this.rotations.push(270); // left
+                this.currentRotations.push(270);
             }
         },
 
@@ -134,9 +139,20 @@ onMounted(() => {
                 case 'left': this.x -= this.size; break;
                 case 'right': this.x += this.size; break;
             }
+
+            let newRotation;
+            switch (this.direction) {
+                case 'up': newRotation = 0; break;
+                case 'right': newRotation = 90; break;
+                case 'down': newRotation = 180; break;
+                case 'left': newRotation = 270; break;
+            }
+
             this.checkCollision();
             this.checkGrowth();
             this.sections.push(`${this.x},${this.y}`);
+            this.rotations.push(newRotation);
+            this.currentRotations.push(this.currentRotations[this.currentRotations.length - 1]);
         },
 
         draw() {
@@ -146,15 +162,21 @@ onMounted(() => {
         },
 
         drawSection(section, length, index) {
-            let rotation = 0;
-            switch (this.direction) {
-                case 'left': rotation = -90; break;
-                case 'right': rotation = 90; break;
-                case 'down': rotation = 180; break;
-                case 'up': rotation = 0; break;
-            }
             const [x, y] = section.map(Number);
-            const drawParams = [x - 25, y - 25, this.size + 50, this.size + 50, rotation];
+            const targetRotation = this.rotations[index];
+            let currentRotation = this.currentRotations[index];
+
+            const diff = ((targetRotation - currentRotation + 540) % 360) - 180;
+            if (Math.abs(diff) > 1) {
+                currentRotation += diff;
+                currentRotation = (currentRotation + 360) % 360;
+            } else {
+                currentRotation = targetRotation;
+            }
+
+            this.currentRotations[index] = currentRotation;
+
+            const drawParams = [x - 25, y - 25, this.size + 50, this.size + 50, currentRotation];
 
             if (index === length - 1) game.drawImage(gunnarImg, ...drawParams);
             else if (index === 0) game.drawImage(jaladImg, ...drawParams);
@@ -177,15 +199,14 @@ onMounted(() => {
         checkGrowth() {
             if (Math.abs(this.x - food.x) < 50 && Math.abs(this.y - food.y) < 50) {
                 game.score++;
-                if (game.score % 5 === 0 && game.fps < 60) {
-                    game.fps++; // Increase speed as the snake eats more food
-                }
+                if (game.score % 5 === 0 && game.fps < 60) game.fps++;
                 food.set();
             } else {
                 this.sections.shift();
+                this.rotations.shift();
+                this.currentRotations.shift();
             }
         }
-
     };
 
     food = {
@@ -207,7 +228,7 @@ onMounted(() => {
         down: [40, 74, 83],
         left: [37, 65, 72],
         right: [39, 68, 76],
-        start_game: [13, 32] // Spacebar or Enter
+        start_game: [13, 32]
     };
 
     const inverseDirection = {
@@ -224,13 +245,12 @@ onMounted(() => {
         return null;
     };
 
-    // Key event listener (using Vue's keydown event binding)
     const handleKeydown = (e) => {
         const lastKey = getKey(e.keyCode);
         if (['up', 'down', 'left', 'right'].includes(lastKey) && lastKey !== inverseDirection[snake.direction]) {
             snake.direction = lastKey;
         } else if (lastKey === 'start_game' && game.over) {
-            game.start(); // Restart the game on spacebar or enter
+            game.start();
             window.location.reload();
         }
     };
@@ -251,7 +271,6 @@ onMounted(() => {
         }, 1000 / game.fps);
     };
 
-    // Start the game immediately after the component is mounted
     game.start();
 });
 </script>
