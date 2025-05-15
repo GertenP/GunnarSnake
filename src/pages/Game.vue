@@ -37,7 +37,7 @@ const gunnarTexts = [
   "Kui su rakenduse käivitamiseks on vaja kõigepealt installida 12 “ajutist” sõltuvust, siis see pole arendus – see on usuharjutus.",
   "Kui te kuskil näete sõna “Python”, siis teadke, et see pole mitte madu, vaid keegi ehitab jälle Exceli klooni, mis vajab kaheksat RAM-i tonni.",
   "Kui su koodi peab igal hommikul parandama, sest “täna ei tööta ühtegi sõltuvust”, siis sa ei tee äri – sa oled lootuse katsejänes.",
-  "Kui su kood on nii täis hacke, et isegi sina ei julge seda pärast kuus kuud avada, siis see pole tarkvara, see on mustkunst.",
+  "Kui su kood on nii täis buge, et isegi sina ei julge seda pärast kuus kuud avada, siis see pole tarkvara, see on mustkunst.",
   "Pole koodi, pole probleemi — see ongi tark arendaja filosoofia."
 ];
 
@@ -63,11 +63,9 @@ onMounted(() => {
     score: 0,
     fps: 2,
     over: false,
-    message: null,
 
     start() {
       this.over = false;
-      this.message = null;
       this.score = 0;
       this.fps = 15;
       snake.init();
@@ -77,7 +75,6 @@ onMounted(() => {
 
     stop() {
       this.over = true;
-      this.message = 'GAME OVER - PRESS SPACEBAR';
     },
 
     drawBox(x, y, size, color) {
@@ -92,17 +89,6 @@ onMounted(() => {
       context.font = `${canvas.value.height}px Impact, sans-serif`;
       context.textAlign = 'center';
       context.fillText(this.score, canvas.value.width / 2, canvas.value.height * 0.9);
-    },
-
-    drawMessage() {
-      if (this.message !== null) {
-        context.fillStyle = '#00F';
-        context.strokeStyle = '#FFF';
-        context.font = `${canvas.value.height / 10}px Impact`;
-        context.textAlign = 'center';
-        context.fillText(this.message, canvas.value.width / 2, canvas.value.height / 2);
-        context.strokeText(this.message, canvas.value.width / 2, canvas.value.height / 2);
-      }
     },
 
     resetCanvas() {
@@ -216,7 +202,7 @@ onMounted(() => {
           isPausedForText = true;
           currentText.value = gunnarTexts[Math.floor(Math.random() * gunnarTexts.length)];
         }
-        if (game.score % 5 === 0 && game.fps < 60) game.fps++;
+        if (game.score % 3 === 0 && game.fps < 60) game.fps++;
         food.set();
       } else {
         this.sections.shift();
@@ -272,7 +258,6 @@ onMounted(() => {
         window.location.reload();
       } else if (isPausedForText) {
         isPausedForText = false;
-        currentText.value = '';
         game.resetCanvas();
       }
     }
@@ -287,7 +272,6 @@ onMounted(() => {
       snake.move();
       food.draw();
       snake.draw();
-      game.drawMessage();
     }
     setTimeout(() => {
       requestAnimationFrame(loop);
