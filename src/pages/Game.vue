@@ -157,6 +157,7 @@ onMounted(() => {
 
         draw() {
             for (let i = 0; i < this.sections.length; i++) {
+                
                 this.drawSection(this.sections[i].split(','), this.sections.length, i);
             }
         },
@@ -199,7 +200,7 @@ onMounted(() => {
         checkGrowth() {
             if (Math.abs(this.x - food.x) < 50 && Math.abs(this.y - food.y) < 50) {
                 game.score++;
-                if (game.score % 5 === 0 && game.fps < 60) game.fps++;
+                game.fps += 1;
                 food.set();
             } else {
                 this.sections.shift();
@@ -215,8 +216,8 @@ onMounted(() => {
         y: null,
         set() {
             this.size = snake.size;
-            this.x = (Math.ceil(Math.random() * 10) * this.size * 4) - this.size / 2;
-            this.y = (Math.ceil(Math.random() * 10) * this.size * 3) - this.size / 2;
+            this.x = Math.floor(Math.random() * 1190) + 10
+            this.y = Math.floor(Math.random() * 990) + 10
         },
         draw() {
             game.drawImage(cImg, this.x, this.y, canvas.value.width / 40, canvas.value.width / 40);
