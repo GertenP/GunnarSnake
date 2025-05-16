@@ -7,7 +7,7 @@
       <canvas ref="canvas" id="the-game" width="1200" height="1000" ></canvas>
     </div>
     <div id="gunnar-container">
-      <p id="gunnar-header">Gunnar räägib</p>
+      <p id="gunnar-header" v-if="currentText">Gunnar räägib</p>
       <div id="gunnar-text">
         <p v-if="currentText">{{ currentText }}</p>
       </div>
@@ -30,7 +30,6 @@ let context;
 let game, snake, food;
 
 const gunnarTexts = [
-  "Vaadake, kallid lapsed, kui te ehitate äppi, mis töötab ainult Chrome’is ja kukub läbi, kui võrguühendus kaob, siis see pole rakendus – see on PowerPoint presentatsioon.",
   ".NET-is teeme me asju, millele isegi raamatupidaja saab klõpsata kartmata, et kõik plahvatab.",
   "Kui sul kulub kolm npm-paketti, et lihtsalt “Hello, world!” öelda, siis tead — sa ei programmeeri, vaid ehitad Duplo maja.",
   "Kui su arendusprotsess eeldab kõigepealt 20 minutit Webpacki käivitamist ja siis npm-i rituaali, siis see pole build – see on okultism.",
