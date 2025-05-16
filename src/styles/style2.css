@@ -1,14 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
 
-html, body {
-        overflow: hidden;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+body {
     font-family: 'Pixelify Sans', sans-serif;
-background: radial-gradient(circle,rgb(255, 154, 2) 0%, rgba(43, 43, 43, 1) 100%);    background-repeat: no-repeat;
-    background-attachment: fixed;
+    background-color: rgb(17, 17, 17) ;
 }
+
 
 
 #mainmenu-link {

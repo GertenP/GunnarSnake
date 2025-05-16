@@ -11,7 +11,7 @@
       <div id="gunnar-text">
         <p v-if="currentText">{{ currentText }}</p>
       </div>
-      <p id="copyright">Copyright @ Eliithäkkerid OÜ</p>
+      <p id="copyright">Copyright @ Eliithäkkerid OÜ |  <a style="color: red;">EARLY ACCESS</a> | <a style="color: red;">TOP SECRET</a> </p>
     </div>
   </div>
 </template>
@@ -67,18 +67,31 @@ onMounted(() => {
     score: ref(0),
     fps: 2,
     over: false,
+    message: null,
 
     start() {
       this.over = false;
       this.score = 0;
       this.fps = 15;
+      this.message = null;
       snake.init();
       food.set();
       loop();
     },
+        drawMessage() {
+      if (this.message !== null) {
+        context.fillStyle = '#FF0000';
+        context.strokeStyle = '#FFF';
+        context.font = `${canvas.value.height / 12}px Pixelify Sans`;
+        context.textAlign = 'center';
+        context.fillText(this.message, canvas.value.width / 2, canvas.value.height / 2);
+        context.strokeText(this.message, canvas.value.width / 2, canvas.value.height / 2);
+      }
+    },
 
     stop() {
       this.over = true;
+      this.message = 'PIDU LÄBI - VAJUTA TÜHIKUT';
     },
 
     drawBox(x, y, size, color) {
@@ -276,6 +289,7 @@ onMounted(() => {
       snake.move();
       food.draw();
       snake.draw();
+      game.drawMessage();
     }
     setTimeout(() => {
       requestAnimationFrame(loop);
