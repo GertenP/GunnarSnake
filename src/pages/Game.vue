@@ -4,7 +4,7 @@
       <router-link to="/" class="back-link">
         ❮ Avalehele
       </router-link>
-      <canvas ref="canvas" id="the-game" width="1200" height="1000"></canvas>
+      <canvas ref="canvas" id="the-game" width="1200" height="1000" ></canvas>
     </div>
     <div id="gunnar-container">
       <p id="gunnar-header">Gunnar räägib</p>
@@ -30,15 +30,15 @@ let context;
 let game, snake, food;
 
 const gunnarTexts = [
-  "Vaadake, kallid lapsed, kui te ehitate äppi, mis töötab ainult Chrome’is ja kukub läbi, kui võrguühendus kaob, siis see pole rakendus – see on PowerPoint animatsioon.",
+  "Vaadake, kallid lapsed, kui te ehitate äppi, mis töötab ainult Chrome’is ja kukub läbi, kui võrguühendus kaob, siis see pole rakendus – see on PowerPoint presentatsioon.",
   ".NET-is teeme me asju, millele isegi raamatupidaja saab klõpsata kartmata, et kõik plahvatab.",
-  "Kui sul kulub kolm npm-paketti, et lihtsalt “Hello, world!” öelda, siis tead — sa ei programmeeri, vaid ehitad Lego maja.",
+  "Kui sul kulub kolm npm-paketti, et lihtsalt “Hello, world!” öelda, siis tead — sa ei programmeeri, vaid ehitad Duplo maja.",
   "Kui su arendusprotsess eeldab kõigepealt 20 minutit Webpacki käivitamist ja siis npm-i rituaali, siis see pole build – see on okultism.",
-  "Kui su rakenduse käivitamiseks on vaja kõigepealt installida 12 “ajutist” sõltuvust, siis see pole arendus – see on usuharjutus.",
-  "Kui te kuskil näete sõna “Python”, siis teadke, et see pole mitte madu, vaid keegi ehitab jälle Exceli klooni, mis vajab kaheksat RAM-i tonni.",
-  "Kui su koodi peab igal hommikul parandama, sest “täna ei tööta ühtegi sõltuvust”, siis sa ei tee äri – sa oled lootuse katsejänes.",
+  "Kui su rakenduse käivitamiseks on vaja kõigepealt installida 12 “ajutist” dependencyt, siis see pole arendus – see on usuharjutus.",
+  "Kui te kuskil näete sõna “Python”, siis teadke, et see pole mitte madu, vaid keegi ehitab jälle Exceli klooni, mis vajab kaheksat RAM-i pulka",
+  "Kui su koodi peab igal hommikul parandama, sest “täna ei tööta ühtegi dependency-t”, siis sa ei tee äri – sa oled lootuse katsejänes.",
   "Kui su kood on nii täis buge, et isegi sina ei julge seda pärast kuus kuud avada, siis see pole tarkvara, see on mustkunst.",
-  "Pole koodi, pole probleemi — see ongi tark arendaja filosoofia."
+  "Pole koodi, pole probleemi — see on targa arendaja filosoofia."
 ];
 
 const currentText = ref('');
@@ -60,7 +60,7 @@ onMounted(() => {
   context = canvas.value.getContext('2d');
 
   game = {
-    score: 0,
+    score: ref(0),
     fps: 2,
     over: false,
 
