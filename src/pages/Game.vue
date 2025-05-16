@@ -11,6 +11,7 @@
       <div id="gunnar-text">
         <p v-if="currentText">{{ currentText }}</p>
       </div>
+      <p id="copyright">Copyright @ Eliithäkkerid OÜ</p>
     </div>
   </div>
 </template>
@@ -37,10 +38,14 @@ const gunnarTexts = [
   "Kui te kuskil näete sõna “Python”, siis teadke, et see pole mitte madu, vaid keegi ehitab jälle Exceli klooni, mis vajab kaheksat RAM-i pulka",
   "Kui su koodi peab igal hommikul parandama, sest “täna ei tööta ühtegi dependency-t”, siis sa ei tee äri – sa oled lootuse katsejänes.",
   "Kui su kood on nii täis buge, et isegi sina ei julge seda pärast kuus kuud avada, siis see pole tarkvara, see on mustkunst.",
-  "Pole koodi, pole probleemi — see on targa arendaja filosoofia."
+  "Pole koodi, pole probleemi — see on targa arendaja filosoofia.",
+  ".NET on nagu vana hea nõukaaegne külmkapp – raske, lärmakas, aga töötab ka pärast tuumaplahvatust.",
+  "Kui keegi ütleb, et ta arendab 'serverless', siis ma küsin: 'Kas sa ka kodus elektrita elad?'",
+  "Async/await C#-is on nagu kohvimasin – sa ei tea täpselt, kuidas ta seesmiselt töötab, aga sa usaldad teda rohkem kui enamik inimesi oma tiimist."
 ];
 
-const currentText = ref('');
+let currentText = ref('');
+currentText.value = gunnarTexts[Math.floor(Math.random() * gunnarTexts.length)];
 
 const gunnarImg = new Image();
 gunnarImg.src = gunnarImgSrc;
@@ -197,7 +202,7 @@ onMounted(() => {
     checkGrowth() {
       if (Math.abs(this.x - food.x) < 50 && Math.abs(this.y - food.y) < 50) {
         game.score++;
-        if (game.score % 10 === 0) {
+        if (game.score % 5 === 0) {
           isPausedForText = true;
           currentText.value = gunnarTexts[Math.floor(Math.random() * gunnarTexts.length)];
         }
@@ -217,8 +222,8 @@ onMounted(() => {
     y: null,
     set() {
       this.size = snake.size;
-      this.x = (Math.ceil(Math.random() * 10) * this.size * 4) - this.size / 2;
-      this.y = (Math.ceil(Math.random() * 10) * this.size * 3) - this.size / 2;
+      this.x = Math.floor(Math.random() * 1180) + 20;
+      this.y = Math.floor(Math.random() * 980) + 20;
     },
     draw() {
       game.drawImage(cImg, this.x, this.y, canvas.value.width / 40, canvas.value.width / 40);
