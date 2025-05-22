@@ -217,7 +217,7 @@ onMounted(() => {
     checkGrowth() {
       if (Math.abs(this.x - food.x) < 50 && Math.abs(this.y - food.y) < 50) {
         game.score++;
-        if (game.score % 1 === 0) {
+        if (game.score % 5 === 0) {
           isPausedForText.value = true;
           currentText.value = gunnarTexts[Math.floor(Math.random() * gunnarTexts.length)];
         }
