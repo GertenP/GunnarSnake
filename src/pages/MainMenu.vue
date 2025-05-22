@@ -71,7 +71,13 @@ a {
 .buttons {
   margin-top: 20px;
 }
+#nupp1:hover {
+  filter: brightness(170%);
+}
 
+#nupp2:hover {
+  filter: brightness(170%);
+}
 .fire {
   width: 100%;
 }

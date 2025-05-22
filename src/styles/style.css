@@ -29,6 +29,10 @@ a{
     margin-top: 20px;
 }
 
+#nupp1:hover {
+  opacity: 0.5;
+}
+
 .fire {
     width: 100%;
 }

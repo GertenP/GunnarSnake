@@ -11,6 +11,7 @@
       <div id="gunnar-text">
         <p v-if="currentText">{{ currentText }}</p>
       </div>
+      
       <p id="copyright">Copyright @ Eliithäkkerid OÜ |  <a style="color: red;">EARLY ACCESS</a> | <a style="color: red;">TOP SECRET</a> </p>
     </div>
   </div>
