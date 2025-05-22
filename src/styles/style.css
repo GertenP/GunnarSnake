@@ -10,6 +10,7 @@ body {
     background-image: url('../assets/gunnaryksi5.png');
 }
 
+
 .main-logo {
     width: 800px; /* Try increasing this to make it bigger */
     max-width: 90%; /* Stays responsive on smaller screens */

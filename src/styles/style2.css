@@ -17,6 +17,12 @@ body {
     display: flex; 
     justify-content: space-between; 
 }
+#pauseText{
+    color:rgb(250, 250, 236);
+    margin-right: 200px;
+    align-items: center;
+    font-size: 40px;
+}
 
 #gameinfo-container {
     display: flex;
@@ -75,4 +81,7 @@ body {
     display: flex;
     color: white;
     font-size: 20px;
+}
+#gunnar-container{
+    text-align: center;
 }

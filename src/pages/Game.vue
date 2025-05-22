@@ -13,6 +13,7 @@
       </div>
       
       <p id="copyright">Copyright @ Eliithäkkerid OÜ |  <a style="color: red;">EARLY ACCESS</a> | <a style="color: red;">TOP SECRET</a> </p>
+        <p id="pauseText" v-if="isPausedForText">Vajuta tühikut, et alustada</p>
     </div>
   </div>
 </template>
@@ -59,7 +60,7 @@ riieImg.src = riieImgSrc;
 const jaladImg = new Image();
 jaladImg.src = jaladImgSrc;
 
-let isPausedForText = false;
+let isPausedForText = ref(true);
 
 onMounted(() => {
   context = canvas.value.getContext('2d');
@@ -148,7 +149,7 @@ onMounted(() => {
     },
 
     move() {
-      if (isPausedForText) return;
+      if (isPausedForText.value) return;
 
       switch (this.direction) {
         case 'up': this.y -= this.size; break;
@@ -216,8 +217,8 @@ onMounted(() => {
     checkGrowth() {
       if (Math.abs(this.x - food.x) < 50 && Math.abs(this.y - food.y) < 50) {
         game.score++;
-        if (game.score % 5 === 0) {
-          isPausedForText = true;
+        if (game.score % 1 === 0) {
+          isPausedForText.value = true;
           currentText.value = gunnarTexts[Math.floor(Math.random() * gunnarTexts.length)];
         }
         if (game.score % 3 === 0 && game.fps < 60) game.fps++;
@@ -274,8 +275,8 @@ onMounted(() => {
       if (game.over) {
         game.start();
         window.location.reload();
-      } else if (isPausedForText) {
-        isPausedForText = false;
+      } else if (isPausedForText.value) {
+        isPausedForText.value = false;
         game.resetCanvas();
       }
     }
@@ -284,7 +285,7 @@ onMounted(() => {
   window.addEventListener('keydown', handleKeydown);
 
   const loop = () => {
-    if (!game.over && !isPausedForText) {
+    if (!game.over && !isPausedForText.value) {
       game.resetCanvas();
       game.drawScore();
       snake.move();
