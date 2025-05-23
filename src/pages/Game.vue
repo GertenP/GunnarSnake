@@ -12,8 +12,8 @@
         <p v-if="currentText">{{ currentText }}</p>
       </div>
 
-      <p id="copyright">Copyright @ Eliithäkkerid OÜ |  
-        <a style="color: red;">EARLY ACCESS</a> | 
+      <p id="copyright">Copyright @ Eliithäkkerid OÜ |
+        <a style="color: red;">EARLY ACCESS</a> |
         <a style="color: red;">TOP SECRET</a>
       </p>
       <p id="pauseText" v-if="isPausedForText">Vajuta tühikut, et alustada</p>
@@ -68,7 +68,7 @@ const score = ref(0);
 let gameOver = false;
 let gameMessage = null;
 let loopTimer = null;
-
+let hasStartedOnce = false;
 onMounted(() => {
   context = canvas.value.getContext('2d');
 
@@ -80,7 +80,11 @@ onMounted(() => {
       gameMessage = null;
       snake.init();
       food.set();
-      isPausedForText.value = true;
+
+      // Show text only on first ever start
+      isPausedForText.value = !hasStartedOnce;
+      hasStartedOnce = true;
+
       currentText.value = gunnarTexts[Math.floor(Math.random() * gunnarTexts.length)];
       if (loopTimer) clearTimeout(loopTimer);
       loop();
