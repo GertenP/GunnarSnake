@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import { createWebHistory, createRouter } from 'vue-router'
+import { createWebHistory, createRouter, createWebHashHistory } from 'vue-router'
 import App from './App.vue'
 import MainMenu from './pages/MainMenu.vue'
 import Game from './pages/Game.vue'
@@ -12,7 +12,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
 })
 

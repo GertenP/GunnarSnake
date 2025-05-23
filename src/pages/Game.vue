@@ -4,16 +4,19 @@
       <router-link to="/" class="back-link">
         ❮ Avalehele
       </router-link>
-      <canvas ref="canvas" id="the-game" width="1200" height="1000" ></canvas>
+      <canvas ref="canvas" id="the-game" width="1200" height="1000"></canvas>
     </div>
     <div id="gunnar-container">
       <p id="gunnar-header" v-if="currentText">Gunnar räägib</p>
       <div id="gunnar-text">
         <p v-if="currentText">{{ currentText }}</p>
       </div>
-      
-      <p id="copyright">Copyright @ Eliithäkkerid OÜ |  <a style="color: red;">EARLY ACCESS</a> | <a style="color: red;">TOP SECRET</a> </p>
-        <p id="pauseText" v-if="isPausedForText">Vajuta tühikut, et alustada</p>
+
+      <p id="copyright">Copyright @ Eliithäkkerid OÜ |  
+        <a style="color: red;">EARLY ACCESS</a> | 
+        <a style="color: red;">TOP SECRET</a>
+      </p>
+      <p id="pauseText" v-if="isPausedForText">Vajuta tühikut, et alustada</p>
     </div>
   </div>
 </template>
@@ -30,7 +33,7 @@ import '@/styles/style2.css';
 
 const canvas = ref(null);
 let context;
-let game, snake, food;
+let snake, food;
 
 const gunnarTexts = [
   ".NET-is teeme me asju, millele isegi raamatupidaja saab klõpsata kartmata, et kõik plahvatab.",
@@ -46,8 +49,8 @@ const gunnarTexts = [
   "Async/await C#-is on nagu kohvimasin – sa ei tea täpselt, kuidas ta seesmiselt töötab, aga sa usaldad teda rohkem kui enamik inimesi oma tiimist."
 ];
 
-let currentText = ref('');
-currentText.value = gunnarTexts[Math.floor(Math.random() * gunnarTexts.length)];
+let currentText = ref(gunnarTexts[Math.floor(Math.random() * gunnarTexts.length)]);
+let isPausedForText = ref(true);
 
 const gunnarImg = new Image();
 gunnarImg.src = gunnarImgSrc;
@@ -60,54 +63,51 @@ riieImg.src = riieImgSrc;
 const jaladImg = new Image();
 jaladImg.src = jaladImgSrc;
 
-let isPausedForText = ref(true);
+const fps = ref(15);
+const score = ref(0);
+let gameOver = false;
+let gameMessage = null;
+let loopTimer = null;
 
 onMounted(() => {
   context = canvas.value.getContext('2d');
 
-  game = {
-    score: ref(0),
-    fps: 2,
-    over: false,
-    message: null,
-
+  const game = {
     start() {
-      this.over = false;
-      this.score = 0;
-      this.fps = 15;
-      this.message = null;
+      gameOver = false;
+      score.value = 0;
+      fps.value = 15;
+      gameMessage = null;
       snake.init();
       food.set();
+      isPausedForText.value = true;
+      currentText.value = gunnarTexts[Math.floor(Math.random() * gunnarTexts.length)];
+      if (loopTimer) clearTimeout(loopTimer);
       loop();
     },
-        drawMessage() {
-      if (this.message !== null) {
+
+    stop() {
+      gameOver = true;
+      gameMessage = 'PIDU LÄBI - VAJUTA TÜHIKUT';
+      isPausedForText.value = true;
+    },
+
+    drawMessage() {
+      if (gameMessage !== null) {
         context.fillStyle = '#FF0000';
         context.strokeStyle = '#FFF';
         context.font = `${canvas.value.height / 12}px Pixelify Sans`;
         context.textAlign = 'center';
-        context.fillText(this.message, canvas.value.width / 2, canvas.value.height / 2);
-        context.strokeText(this.message, canvas.value.width / 2, canvas.value.height / 2);
+        context.fillText(gameMessage, canvas.value.width / 2, canvas.value.height / 2);
+        context.strokeText(gameMessage, canvas.value.width / 2, canvas.value.height / 2);
       }
-    },
-
-    stop() {
-      this.over = true;
-      this.message = 'PIDU LÄBI - VAJUTA TÜHIKUT';
-    },
-
-    drawBox(x, y, size, color) {
-      context.fillStyle = color;
-      context.beginPath();
-      context.rect(x - size / 2, y - size / 2, size, size);
-      context.fill();
     },
 
     drawScore() {
       context.fillStyle = '#999';
       context.font = `${canvas.value.height}px Impact, sans-serif`;
       context.textAlign = 'center';
-      context.fillText(this.score, canvas.value.width / 2, canvas.value.height * 0.9);
+      context.fillText(score.value, canvas.value.width / 2, canvas.value.height * 0.9);
     },
 
     resetCanvas() {
@@ -149,7 +149,7 @@ onMounted(() => {
     },
 
     move() {
-      if (isPausedForText.value) return;
+      if (isPausedForText.value || gameOver) return;
 
       switch (this.direction) {
         case 'up': this.y -= this.size; break;
@@ -216,12 +216,12 @@ onMounted(() => {
 
     checkGrowth() {
       if (Math.abs(this.x - food.x) < 50 && Math.abs(this.y - food.y) < 50) {
-        game.score++;
-        if (game.score % 5 === 0) {
+        score.value++;
+        if (score.value % 5 === 0) {
           isPausedForText.value = true;
           currentText.value = gunnarTexts[Math.floor(Math.random() * gunnarTexts.length)];
         }
-        if (game.score % 3 === 0 && game.fps < 60) game.fps++;
+        if (score.value % 3 === 0 && fps.value < 60) fps.value++;
         food.set();
       } else {
         this.sections.shift();
@@ -237,8 +237,8 @@ onMounted(() => {
     y: null,
     set() {
       this.size = snake.size;
-      this.x = Math.floor(Math.random() * 1180) + 20;
-      this.y = Math.floor(Math.random() * 980) + 20;
+      this.x = Math.floor(Math.random() * (canvas.value.width - 40)) + 20;
+      this.y = Math.floor(Math.random() * (canvas.value.height - 40)) + 20;
     },
     draw() {
       game.drawImage(cImg, this.x, this.y, canvas.value.width / 40, canvas.value.width / 40);
@@ -272,9 +272,8 @@ onMounted(() => {
     if (['up', 'down', 'left', 'right'].includes(lastKey) && lastKey !== inverseDirection[snake.direction]) {
       snake.direction = lastKey;
     } else if (lastKey === 'start_game') {
-      if (game.over) {
+      if (gameOver) {
         game.start();
-        window.location.reload();
       } else if (isPausedForText.value) {
         isPausedForText.value = false;
         game.resetCanvas();
@@ -285,7 +284,7 @@ onMounted(() => {
   window.addEventListener('keydown', handleKeydown);
 
   const loop = () => {
-    if (!game.over && !isPausedForText.value) {
+    if (!gameOver && !isPausedForText.value) {
       game.resetCanvas();
       game.drawScore();
       snake.move();
@@ -293,9 +292,9 @@ onMounted(() => {
       snake.draw();
       game.drawMessage();
     }
-    setTimeout(() => {
+    loopTimer = setTimeout(() => {
       requestAnimationFrame(loop);
-    }, 1000 / game.fps);
+    }, 1000 / fps.value);
   };
 
   game.start();
